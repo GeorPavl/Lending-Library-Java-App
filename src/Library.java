@@ -1,49 +1,50 @@
 import java.util.ArrayList;
 
-/**
- * The Library class represents a lending library and is characterized by a collection
- * of LibraryItem type objects.
- **/
 public class Library {
 
-    /** fields **/
-    private ArrayList<LibraryItem> items;
+    ArrayList<LibraryItem> items;
 
-    /** constructor **/
-    public Library () {
-        this.items = new ArrayList<>();
+
+    public Library() {
+        items = new ArrayList<>();
     }
 
-    /** methods **/
-    public void addItem(LibraryItem item) {
-        boolean exists = false;
-        for (LibraryItem libraryItem : this.items) {
-            // if item already exists in the list -> add copy
-            if (libraryItem.equals(item)) {
-                libraryItem.addCopy();
-                exists = true;
+    public void addItem(LibraryItem item)  {
+        boolean isFound = false;
+        for(LibraryItem tempItem : items){
+            if(tempItem.equals(item)){
+                tempItem.plusCopy();
+                isFound = true;
             }
         }
-        // if item doesn't exist in the list -> add new item
-        if (exists == false) {
-            this.items.add(item);
+        if(!isFound){
+            items.add(item);
         }
     }
 
-    public boolean loanOut(String serialNumber) {
-        for (LibraryItem libraryItem : this.items) {
-            if (libraryItem.getSerialNumber() == serialNumber) {
-                return libraryItem.borrowCopy();
+
+    public boolean loanOut(String serialNo) {
+        LibraryItem tempItem = null;
+        for(LibraryItem listItem : items){
+            if(listItem.getSerialNo().equals(serialNo)){
+                tempItem = listItem;
             }
+        }
+        if(tempItem != null && tempItem.borrow()){
+            return true;
         }
         return false;
     }
 
-    public boolean putBack(String serialNumber) {
-        for (LibraryItem libraryItem : this.items) {
-            if (libraryItem.getSerialNumber() == serialNumber) {
-                return libraryItem.returnCopy();
+    public boolean putBack(String serialNo) {
+        LibraryItem tempItem =null;
+        for(LibraryItem listItem : items){
+            if(listItem.getSerialNo().equals(serialNo)){
+                tempItem = listItem;
             }
+        }
+        if(tempItem != null && tempItem.returnCopy()){
+            return true;
         }
         return false;
     }
@@ -63,10 +64,28 @@ public class Library {
         return list;
     }
 
+    public String download(String serialNumber) {
+        LibraryItem tempItem = null;
+        for(LibraryItem listItem : items){
+            if(listItem.getSerialNo().equals(serialNumber)){
+                tempItem = listItem;
+            }
+        }
+        if(tempItem !=null){
+            if(tempItem instanceof Downloadable){
+                return ((Downloadable) tempItem).download();
+            }else{
+                return "https://projectlibrary.net/noDL.html";
+            }
+
+        }
+        return "https://projectlibrary.net/404.html";
+    }
+
     @Override
     public String toString() {
         return "Library{" +
-                "items=" + items +
+                "items=" + items.toString() +
                 '}';
     }
 }

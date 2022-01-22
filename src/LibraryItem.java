@@ -1,51 +1,41 @@
-/**
- * Represents an item available from the library for borrowing.
- * The class is defined as abstract.
-**/
+import java.util.ArrayList;
+import java.util.Objects;
+
 public abstract class LibraryItem {
 
-    /** fields **/
-    private String serialNumber;
-
+    private String serialNo;
     private String title;
-
-    private int totalCopies;
-
+    private int copies;
     private int availableCopies;
 
-    /** constructor **/
-    public LibraryItem(String serialNumber, String title) {
-        this.serialNumber = serialNumber;
+    public LibraryItem(String serialNo, String title){
+        this.serialNo = serialNo;
         this.title = title;
-        this.totalCopies = 1;
+        this.copies = 1;
         this.availableCopies = 1;
     }
 
-    /** methods **/
-    public String getSerialNumber() {
-        return this.serialNumber;
+    public String getSerialNo() {
+        return this.serialNo;
     }
 
-    public String getTitle() {
-        return this.title;
-    }
 
-    public void addCopy() {
-        this.totalCopies++;
+    public void plusCopy(){
+        this.copies++;
         this.availableCopies++;
     }
 
-    public boolean borrowCopy() {
-        if (this.availableCopies > 0) {
-            this.availableCopies--;
+    public boolean borrow(){
+        if(availableCopies > 0){
+            availableCopies--;
             return true;
         }
         return false;
     }
 
-    public boolean returnCopy() {
-        if (this.totalCopies > this.availableCopies) {
-            this.availableCopies++;
+    public boolean returnCopy(){
+        if(availableCopies<copies){
+            availableCopies++;
             return true;
         }
         return false;
@@ -58,23 +48,24 @@ public abstract class LibraryItem {
         return false;
     }
 
-    /** overridden methods **/
+
     @Override
-    public String toString() {
-        return "[" + this.availableCopies + "/" + this.totalCopies + "] "
-                + this.serialNumber.toUpperCase() + ", \"" + this.title.toUpperCase() + "\"";
+    public String toString(){
+        return "(" + availableCopies + "/" + copies + ") " + serialNo.toUpperCase() + ", \"" + title.toUpperCase() + "\"";
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if ((obj instanceof LibraryItem) && ((LibraryItem) obj).serialNumber == this.serialNumber) {
-            return true;
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LibraryItem)) return false;
+        LibraryItem item = (LibraryItem) o;
+        return Objects.equals(getSerialNo(), item.getSerialNo());
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(getSerialNo());
     }
+
+
 }

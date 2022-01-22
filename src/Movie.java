@@ -1,21 +1,20 @@
-/**
- * Represents a movie and inherits from LibraryItem.
- * A movie is additionally characterized by the year of its release
- **/
-public class Movie extends LibraryItem{
+public class Movie extends LibraryItem implements Downloadable{
 
-    /** fields **/
-    private int releaseYear;
+    private int year;
 
-    /** constructor **/
-    public Movie(String serialNumber, String title, int releaseYear) {
-        super(serialNumber, title);
-        this.releaseYear = releaseYear;
+    public Movie(int year, String serialNo, String title) {
+        super(serialNo,title);
+        this.year = year;
     }
 
-    /** methods **/
     @Override
-    public String toString() {
-        return super.toString() + "(" + this.releaseYear + ")";
+    public String toString(){
+        return super.toString() + " (" + year + ")";
+    }
+
+    @Override
+    public String download(){
+        String result = "https://projectlibrary.net/movie?serial=" + getSerialNo() + "&year=" + year ;
+        return result;
     }
 }

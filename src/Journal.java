@@ -1,37 +1,37 @@
-/**
- * Represents a magazine and is inherited from LibraryItem.
- * A magazine is also characterized by its publisher, volume and issue.
- **/
-public class Journal extends LibraryItem{
+public class Journal extends LibraryItem implements Downloadable{
 
-    /** fields **/
-    private String publisher;
-
+    private String editor;
     private int volume;
-
     private int issue;
 
 
-    /** constructor **/
-    public Journal(String serialNumber, String title, String publisher, int volume, int issue) {
-        super(serialNumber, title);
-        this.publisher = publisher;
+    public Journal(String editor, int volume, int issue, String serialNo, String title) {
+        super(serialNo,title);
+        this.editor = editor;
         this.volume = volume;
         this.issue = issue;
     }
 
-    /** methods **/
+    @Override
+    public String toString(){
+        return super.toString() + " " + editor.toUpperCase() + ", " + volume + " #" + issue;
+    }
+
     @Override
     public boolean search(String term) {
-        if ((super.search(term)) || (publisher.toLowerCase().contains(term.toLowerCase()))) {
+        if (super.search(term)) {
+            return true;
+        }
+        if (editor.toLowerCase().contains(term.toLowerCase())) {
             return true;
         }
         return false;
     }
 
-    /** overridden methods **/
     @Override
-    public String toString() {
-        return super.toString() + " " + this.publisher.toUpperCase() + ", " + this.volume + ", #" + this.issue;
+    public String download(){
+        String result = "https://projectlibrary.net/mag?serial=" + getSerialNo() + "&volume=" + volume + "&issue=" + issue;
+        return result;
     }
+
 }
