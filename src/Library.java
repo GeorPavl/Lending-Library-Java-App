@@ -48,6 +48,21 @@ public class Library {
         return false;
     }
 
+    public ArrayList<String> search(String term) {
+        ArrayList<String> list = new ArrayList<>();
+        for(LibraryItem tempItem :items){
+            if(term.equals("*")){
+                list.add(tempItem.toString());
+            }else{
+                boolean searchResult = tempItem.search(term);
+                if(searchResult){
+                    list.add(tempItem.toString());
+                }
+            }
+        }
+        return list;
+    }
+
     @Override
     public String toString() {
         return "Library{" +

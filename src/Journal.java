@@ -13,7 +13,7 @@ public class Journal extends LibraryItem{
 
 
     /** constructor **/
-    public Journal(String publisher, int volume, int issue, String serialNumber, String title) {
+    public Journal(String serialNumber, String title, String publisher, int volume, int issue) {
         super(serialNumber, title);
         this.publisher = publisher;
         this.volume = volume;
@@ -21,6 +21,15 @@ public class Journal extends LibraryItem{
     }
 
     /** methods **/
+    @Override
+    public boolean search(String term) {
+        if ((super.search(term)) || (publisher.toLowerCase().contains(term.toLowerCase()))) {
+            return true;
+        }
+        return false;
+    }
+
+    /** overridden methods **/
     @Override
     public String toString() {
         return super.toString() + " " + this.publisher.toUpperCase() + ", " + this.volume + ", #" + this.issue;

@@ -26,6 +26,10 @@ public abstract class LibraryItem {
         return this.serialNumber;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
     public void addCopy() {
         this.totalCopies++;
         this.availableCopies++;
@@ -42,6 +46,13 @@ public abstract class LibraryItem {
     public boolean returnCopy() {
         if (this.totalCopies > this.availableCopies) {
             this.availableCopies++;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean search(String term){
+        if(title.toLowerCase().contains(term.toLowerCase())){
             return true;
         }
         return false;

@@ -58,5 +58,14 @@ public class Main {
 
         library.putBack("5678");
         System.out.println(library.toString());
+
+        Journal journal = new Journal("789ab", "NATIONAL GEOGRAPHIC", "K. Rowl", 14, 4);
+        library.addItem(journal);
+        System.out.println(library.toString());
+
+        System.out.println("==================");
+        for (String item : library.search("ro")) {
+            System.out.println(item);
+        }
     }
 }
