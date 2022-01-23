@@ -1,12 +1,14 @@
 import java.util.ArrayList;
-import  java.util.LinkedList;
-import java.util.List;
 
+/**
+ * Represents a book and inherits from LibraryItem.
+ * A book is additionally characterized by its authors.
+ */
 public class Book extends LibraryItem {
 
     private ArrayList<String> writers;
 
-
+    // Constructor
     public Book (ArrayList<String> authors, String serialNo, String title) {
         super(serialNo,title);
         this.writers = new ArrayList<>();
@@ -15,17 +17,20 @@ public class Book extends LibraryItem {
         }
     }
 
+    // Overridden methods
     @Override
     public String toString(){
         String myWriters = "";
         for(int i=0; i<writers.size(); i++){
-
-                myWriters += writers.get(i).toUpperCase() + ", ";
-
+            myWriters += writers.get(i).toUpperCase() + ", ";
         }
         return super.toString() + " by " + myWriters + "-";
     }
 
+    /**
+     * Overridden method of superclass.
+     * Returns true if item's title or writers, contains the searching term
+     **/
     @Override
     public boolean search(String term){
         boolean isOnTitle = super.search(term);
@@ -40,6 +45,4 @@ public class Book extends LibraryItem {
         }
         return false;
     }
-
-
 }

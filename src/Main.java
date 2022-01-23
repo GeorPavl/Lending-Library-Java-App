@@ -1,15 +1,13 @@
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
+
     private static Library lib = new Library();
     private static Scanner sc = new Scanner(System.in);
 
     public static void main (String [] args) {
-
-
         while (true) {
             printMenu();
             String action = sc.nextLine().strip().toLowerCase();
@@ -51,12 +49,12 @@ public class Main {
      */
     private static void returnItem() {
         System.out.println("Serial number:");
-        String serialNo = sc.nextLine().strip();
-        if (lib.putBack(serialNo)) {
-            System.out.println(serialNo + " return OK");
+        String serialNumber = sc.nextLine().strip();
+        if (lib.putBack(serialNumber)) {
+            System.out.println(serialNumber + " return OK");
         }
         else {
-            System.out.println(serialNo + " return NOT OK");
+            System.out.println(serialNumber + " return NOT OK");
         }
     }
 
@@ -65,12 +63,12 @@ public class Main {
      */
     private static void loanOutItem() {
         System.out.println("Serial number:");
-        String serialNo = sc.nextLine().strip();
-        if (lib.loanOut(serialNo)) {
-            System.out.println(serialNo + " loan OK");
+        String serialNumber = sc.nextLine().strip();
+        if (lib.loanOut(serialNumber)) {
+            System.out.println(serialNumber + " loan OK");
         }
         else {
-            System.out.println(serialNo + " loan NOT OK");
+            System.out.println(serialNumber + " loan NOT OK");
         }
     }
 
@@ -96,8 +94,8 @@ public class Main {
      */
     private static void downloadItem() {
         System.out.println("Serial number:");
-        String serialNo = sc.nextLine().strip();
-        String link = lib.download(serialNo);
+        String serialNumber = sc.nextLine().strip();
+        String link = lib.download(serialNumber);
         System.out.println("link: " + link);
     }
 
@@ -106,15 +104,15 @@ public class Main {
      */
     private static void addMovie() {
         System.out.println("Serial number:");
-        String serialNo = sc.nextLine().strip();
+        String serialNumber = sc.nextLine().strip();
         System.out.println("Title:");
         String title = sc.nextLine().strip();
         System.out.println("Year:");
-        int year = sc.nextInt();
+        int releaseYear = sc.nextInt();
         sc.nextLine(); // eat up the newline
-        Movie newMovie = new Movie(year, serialNo, title);
+        Movie newMovie = new Movie(releaseYear, serialNumber, title);
         lib.addItem(newMovie);
-        System.out.println("\"" + serialNo + "\" movie added.");
+        System.out.println("\"" + serialNumber + "\" movie added.");
     }
 
     /**
@@ -122,19 +120,19 @@ public class Main {
      */
     private static void addJournal() {
         System.out.println("Serial number:");
-        String serialNo = sc.nextLine().strip();
+        String serialNumber = sc.nextLine().strip();
         System.out.println("Title:");
         String title = sc.nextLine().strip();
         System.out.println("Editor:");
-        String editor = sc.nextLine().strip();
+        String publisher = sc.nextLine().strip();
         System.out.println("Volume:");
         int volume = sc.nextInt();
         System.out.println("Issue:");
         int issue = sc.nextInt();
         sc.nextLine(); // eat up the newline
-        Journal newJournal = new Journal(editor, volume, issue, serialNo, title);
+        Journal newJournal = new Journal(publisher, volume, issue, serialNumber, title);
         lib.addItem(newJournal);
-        System.out.println("\"" + serialNo + "\" journal added.");
+        System.out.println("\"" + serialNumber + "\" journal added.");
     }
 
     /**
@@ -142,7 +140,7 @@ public class Main {
      */
     private static void addBook() {
         System.out.println("Serial number:");
-        String serialNo = sc.nextLine().strip();
+        String serialNumber = sc.nextLine().strip();
         System.out.println("Title:");
         String title = sc.nextLine().strip();
         System.out.println("Main author:");
@@ -153,9 +151,9 @@ public class Main {
             System.out.println("Other author (hit Enter if none):");
             author = sc.nextLine().strip();
         } while (!author.equals(""));
-        Book newBook = new Book(authors, serialNo, title);
+        Book newBook = new Book(authors, serialNumber, title);
         lib.addItem(newBook);
-        System.out.println("\"" + serialNo + "\" book added.");
+        System.out.println("\"" + serialNumber + "\" book added.");
     }
 
     /**
