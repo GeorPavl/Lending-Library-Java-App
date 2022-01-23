@@ -33,14 +33,13 @@ public class Book extends LibraryItem {
      **/
     @Override
     public boolean search(String term){
-        boolean isOnTitle = super.search(term);
         boolean isOnWriters = false;
         for(String tempWriter : writers){
             if(tempWriter.toLowerCase().contains(term.toLowerCase())){
                 isOnWriters = true;
             }
         }
-        if(isOnTitle || isOnWriters){
+        if(super.search(term) || isOnWriters){
             return true;
         }
         return false;

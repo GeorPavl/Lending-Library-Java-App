@@ -30,10 +30,7 @@ public class Journal extends LibraryItem implements Downloadable{
      **/
     @Override
     public boolean search(String term) {
-        if (super.search(term)) {
-            return true;
-        }
-        if (publisher.toLowerCase().contains(term.toLowerCase())) {
+        if ((super.search(term)) || (publisher.toLowerCase().contains(term.toLowerCase()))) {
             return true;
         }
         return false;
@@ -48,5 +45,4 @@ public class Journal extends LibraryItem implements Downloadable{
         String result = "https://projectlibrary.net/mag?serial=" + getSerialNumber() + "&volume=" + volume + "&issue=" + issue;
         return result;
     }
-
 }
